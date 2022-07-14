@@ -1,8 +1,8 @@
 import joi from "joi"
 
-import { createUserData } from "../../services/usersService"
+import { userData } from "../../services/usersService"
 
-const signUpSchema = joi.object<createUserData>({
+const signUpSchema = joi.object<userData>({
     email: joi.string().email().required(),
     password: joi.string().min(10).required(),
 })

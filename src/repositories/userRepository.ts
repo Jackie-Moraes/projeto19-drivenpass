@@ -1,4 +1,4 @@
-import { client } from "../config/database"
+import { client } from "../config/database.js"
 import bcrypt from "bcrypt"
 
 async function checkIfEmailExists(email: string) {
@@ -21,7 +21,17 @@ async function userSignUp(email: string, password: string) {
     })
 }
 
+async function userSignIn(name: string, userId: number) {
+    await client.sessions.create({
+        data: {
+            userId,
+            name,
+        },
+    })
+}
+
 export const userRepository = {
     checkIfEmailExists,
     userSignUp,
+    userSignIn,
 }

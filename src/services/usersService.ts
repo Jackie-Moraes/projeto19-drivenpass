@@ -1,27 +1,27 @@
 import { users } from "@prisma/client"
-import { userRepository } from "../repositories/userRepository"
 
-export type createUserData = Omit<users, "id">
+import { ensureEmailIsNotInUse } from "../utils/ensureEmailIsNotInUse.js"
+import { createAccount } from "../utils/createAccount.js"
+import { checkEmail } from "../utils/checkEmail.js"
+import { validatePassword } from "../utils/validatePassword.js"
+import { createAndSendToken } from "../utils/createAndSendToken.js"
 
-async function ensureEmailIsNotInUse(email: string) {
-    const exists = await userRepository.checkIfEmailExists(email)
-    if (exists)
-        throw { type: "emailAlreadyInUse", message: "Email already in use!" }
-}
+export type userData = Omit<users, "id">
 
-async function createAccount(body: createUserData) {
-    const insertUser = await userRepository.userSignUp(
-        body.email,
-        body.password
-    )
-}
-
-async function userSignUp(body: createUserData) {
+async function userSignUp(body: userData) {
     await ensureEmailIsNotInUse(body.email)
 
     await createAccount(body)
 }
 
+async function userSignIn(body: userData) {
+    const credentials = await checkEmail(body)
+    await validatePassword(credentials, body.password)
+
+    return await createAndSendToken(credentials.id, body.email)
+}
+
 export const usersService = {
     userSignUp,
+    userSignIn,
 }

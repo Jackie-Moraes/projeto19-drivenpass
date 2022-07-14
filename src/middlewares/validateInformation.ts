@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express"
 
-import { client } from "../config/database"
-import signUpSchema from "./schemas/signUpSchema"
+import signUpSchema from "./schemas/signUpSchema.js"
 
 export async function validateSignUp(
     req: Request,

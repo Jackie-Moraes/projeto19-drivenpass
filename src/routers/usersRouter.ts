@@ -1,9 +1,10 @@
 import { Router } from "express"
-import { signUp } from "../controllers/usersController"
-import { validateSignUp } from "../middlewares/validateInformation"
+
+import { signIn, signUp } from "../controllers/usersController.js"
+import { validateSignUp } from "../middlewares/validateInformation.js"
 
 const usersRouter = Router()
 
 usersRouter.post("/signup", validateSignUp, signUp)
-
+usersRouter.post("/signin", validateSignUp, signIn)
 export default usersRouter

@@ -3,19 +3,19 @@ import "express-async-errors"
 import cors from "cors"
 import dotenv from "dotenv"
 
-import handleErrors from "./src/middlewares/errorHandlerMiddleware"
-import usersRouter from "./src/routers/usersRouter"
+import handleErrors from "./src/middlewares/errorHandlerMiddleware.js"
+import usersRouter from "./src/routers/usersRouter.js"
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 dotenv.config()
 
-app.use(handleErrors)
-
 // Routers
-
 app.use(usersRouter)
+
+// Error Handler
+app.use(handleErrors)
 
 const { PORT } = process.env
 app.listen(PORT, () => {
