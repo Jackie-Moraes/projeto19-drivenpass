@@ -3,7 +3,7 @@ import "express-async-errors"
 import cors from "cors"
 import dotenv from "dotenv"
 
-import handleError from "./src/middlewares/errorHandlerMiddleware"
+import handleErrors from "./src/middlewares/errorHandlerMiddleware"
 import usersRouter from "./src/routers/usersRouter"
 
 const app = express()
@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.json())
 dotenv.config()
 
-app.use(handleError)
+app.use(handleErrors)
 
 // Routers
 

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express"
 
-export default async function handleError(
+export default async function handleErrors(
     error,
     req: Request,
     res: Response,
