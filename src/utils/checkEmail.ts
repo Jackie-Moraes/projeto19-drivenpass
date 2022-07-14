@@ -1,5 +1,5 @@
-import { userRepository } from "../repositories/userRepository"
-import { userData } from "../services/usersService"
+import { userRepository } from "../repositories/userRepository.js"
+import { userData } from "../services/usersService.js"
 
 export async function checkEmail(body: userData) {
     const emailIsRegistered = await userRepository.checkIfEmailExists(

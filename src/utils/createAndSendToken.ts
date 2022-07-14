@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 
-import { userRepository } from "../repositories/userRepository"
+import { userRepository } from "../repositories/userRepository.js"
 
 export async function createAndSendToken(id: number, email: string) {
     const key = process.env.JWT_SECRET

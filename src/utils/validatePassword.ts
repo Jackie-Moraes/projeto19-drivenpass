@@ -1,4 +1,4 @@
-import { userData } from "../services/usersService"
+import { userData } from "../services/usersService.js"
 import bcrypt from "bcrypt"
 
 export async function validatePassword(
