@@ -6,7 +6,15 @@ export default async function handleError(
     res: Response,
     next: NextFunction
 ) {
-    if (error.type === "error_...") return res.sendStatus(500)
+    // Sign Up Errors
+    if (error.type === "emailAlreadyInUse") {
+        return res.status(409).send(error.message)
+    }
+
+    // Schema Errors
+    if (error.type === "validationError") {
+        return res.status(422).send(error.message)
+    }
 
     return res.sendStatus(500)
 }
