@@ -1,7 +1,7 @@
 import { users } from "@prisma/client"
 import { userRepository } from "../repositories/userRepository"
 
-type createUserData = Omit<users, "id">
+export type createUserData = Omit<users, "id">
 
 async function ensureEmailIsNotInUse(email: string) {
     const exists = await userRepository.checkIfEmailExists(email)
