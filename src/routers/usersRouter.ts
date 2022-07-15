@@ -1,7 +1,10 @@
 import { Router } from "express"
 
 import { signIn, signUp } from "../controllers/usersController.js"
-import { validateSignUp } from "../middlewares/validateInformation.js"
+import {
+    validateSignUp,
+    validateToken,
+} from "../middlewares/validateInformation.js"
 
 const usersRouter = Router()
 
