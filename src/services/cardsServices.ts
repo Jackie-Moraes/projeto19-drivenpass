@@ -4,6 +4,7 @@ import { cryptr } from "../repositories/credentialsRepository.js"
 import { cardsRepository } from "../repositories/cardsRepository.js"
 import { createNewCard } from "../utils/createNewCard.js"
 import { ensureCardTitleIsNotDuplicate } from "../utils/ensureCardTitleIsNotDuplicate.js"
+import { checkCardOwnership } from "../utils/checkCardOwnership.js"
 
 export type cardsData = Omit<cards, "id" | "userId">
 
@@ -34,4 +35,14 @@ async function returnSingleCard(cardId: number, userId: number) {
     return card
 }
 
-export const cardsServices = { createCard, returnAllCards, returnSingleCard }
+async function deleteCard(cardId: number, userId: number) {
+    await checkCardOwnership(cardId, userId)
+    await cardsRepository.deleteCard(cardId)
+}
+
+export const cardsServices = {
+    createCard,
+    returnAllCards,
+    returnSingleCard,
+    deleteCard,
+}

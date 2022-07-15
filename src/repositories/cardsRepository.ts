@@ -50,9 +50,29 @@ async function returnSingleCard(cardId: number, userId: number) {
     return card
 }
 
+async function checkCardOwnership(cardId: number, userId: number) {
+    const exists = await client.cards.findFirst({
+        where: {
+            id: cardId,
+            userId,
+        },
+    })
+    return exists
+}
+
+async function deleteCard(cardId: number) {
+    await client.cards.delete({
+        where: {
+            id: cardId,
+        },
+    })
+}
+
 export const cardsRepository = {
     checkIfTitleIsDuplicate,
     createNewCard,
     returnAllCards,
     returnSingleCard,
+    checkCardOwnership,
+    deleteCard,
 }

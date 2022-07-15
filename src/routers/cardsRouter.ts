@@ -1,6 +1,11 @@
 import { Router } from "express"
 
-import { createCard, getAllCards } from "../controllers/cardsController.js"
+import {
+    createCard,
+    deleteCard,
+    getAllCards,
+    getSingleCard,
+} from "../controllers/cardsController.js"
 import {
     validateCard,
     validateToken,
@@ -10,6 +15,7 @@ const cardsRouter = Router()
 
 cardsRouter.post("/cards", validateCard, validateToken, createCard)
 cardsRouter.get("/cards", validateToken, getAllCards)
-cardsRouter.get("/cards/:id", validateToken)
+cardsRouter.get("/cards/:id", validateToken, getSingleCard)
+cardsRouter.delete("/cards/:id", validateToken, deleteCard)
 
 export default cardsRouter
