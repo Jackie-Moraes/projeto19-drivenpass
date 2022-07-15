@@ -30,8 +30,19 @@ async function returnAllNotes(userId: number) {
     return allNotes
 }
 
+async function returnSingleNote(noteId: number, userId: number) {
+    const note = await client.notes.findFirst({
+        where: {
+            id: noteId,
+            userId,
+        },
+    })
+    return note
+}
+
 export const notesRepository = {
     checkIfTitleIsDuplicate,
     createNewNote,
     returnAllNotes,
+    returnSingleNote,
 }

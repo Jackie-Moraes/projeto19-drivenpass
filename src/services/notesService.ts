@@ -21,7 +21,16 @@ async function returnAllNotes(userId: number) {
     return notes
 }
 
+async function returnSingleNote(noteId: number, userId: number) {
+    const note = await notesRepository.returnSingleNote(noteId, userId)
+    delete note.id
+    delete note.userId
+
+    return note
+}
+
 export const notesService = {
     createNote,
     returnAllNotes,
+    returnSingleNote,
 }
