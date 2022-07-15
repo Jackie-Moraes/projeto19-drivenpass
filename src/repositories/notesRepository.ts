@@ -40,9 +40,29 @@ async function returnSingleNote(noteId: number, userId: number) {
     return note
 }
 
+async function checkNoteOwnership(noteId: number, userId: number) {
+    const exists = await client.notes.findFirst({
+        where: {
+            id: noteId,
+            userId,
+        },
+    })
+    return exists
+}
+
+async function deleteNote(noteId: number) {
+    await client.notes.delete({
+        where: {
+            id: noteId,
+        },
+    })
+}
+
 export const notesRepository = {
     checkIfTitleIsDuplicate,
     createNewNote,
     returnAllNotes,
     returnSingleNote,
+    checkNoteOwnership,
+    deleteNote,
 }

@@ -1,6 +1,7 @@
 import { notes } from "@prisma/client"
 
 import { notesRepository } from "../repositories/notesRepository.js"
+import { checkNoteOwnership } from "../utils/checkNoteOwnership.js"
 import { createNewNote } from "../utils/createNewNote.js"
 import { ensureNoteTitleIsNotDuplicate } from "../utils/ensureNoteTitleIsNotDuplicate.js"
 
@@ -29,8 +30,14 @@ async function returnSingleNote(noteId: number, userId: number) {
     return note
 }
 
+async function deleteNote(noteId: number, userId: number) {
+    await checkNoteOwnership(noteId, userId)
+    await notesRepository.deleteNote(noteId)
+}
+
 export const notesService = {
     createNote,
     returnAllNotes,
     returnSingleNote,
+    deleteNote,
 }

@@ -22,6 +22,11 @@ export default async function handleErrors(
         return res.status(401).send(error.message)
     }
 
+    // Title Exclusivity Errors
+    if (error.type === "titleAlreadyExists") {
+        return res.status(409).send(error.message)
+    }
+
     // Sign Up Errors
     if (error.type === "emailAlreadyInUse") {
         return res.status(409).send(error.message)
@@ -33,10 +38,12 @@ export default async function handleErrors(
     }
 
     // Credentials Errors
-    if (error.type === "titleAlreadyExists") {
-        return res.status(409).send(error.message)
-    }
     if (error.type === "credentialConflict") {
+        return res.status(404).send(error.message)
+    }
+
+    // Note Errors
+    if (error.type === "noteConflict") {
         return res.status(404).send(error.message)
     }
 
