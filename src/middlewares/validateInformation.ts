@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import jwt from "jsonwebtoken"
 
 import { userRepository } from "../repositories/userRepository.js"
+import credentialsSchema from "./schemas/credentialsSchema.js"
 import signUpSchema from "./schemas/signUpSchema.js"
 
 export async function validateSignUp(
@@ -41,5 +42,18 @@ export async function validateToken(
     }
 
     res.locals.userId = exists.userId
+    next()
+}
+
+export async function validateCredentials(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    const validation = credentialsSchema.validate(req.body)
+    if (validation.error) {
+        throw { type: "validationError", message: validation.error }
+    }
+
     next()
 }
