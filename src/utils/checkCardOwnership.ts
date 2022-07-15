@@ -1,4 +1,4 @@
-import { cardsRepository } from "../repositories/cardsRepository"
+import { cardsRepository } from "../repositories/cardsRepository.js"
 
 export async function checkCardOwnership(cardId: number, userId: number) {
     const exists = await cardsRepository.checkCardOwnership(cardId, userId)

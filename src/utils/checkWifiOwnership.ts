@@ -1,4 +1,4 @@
-import { wifiRepository } from "../repositories/wifiRepository"
+import { wifiRepository } from "../repositories/wifiRepository.js"
 
 export async function checkWifiOwnership(wifiId: number, userId: number) {
     const exists = await wifiRepository.checkWifiOwnership(wifiId, userId)
