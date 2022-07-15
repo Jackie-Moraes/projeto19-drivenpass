@@ -36,6 +36,9 @@ export default async function handleErrors(
     if (error.type === "titleAlreadyExists") {
         return res.status(409).send(error.message)
     }
+    if (error.type === "credentialConflict") {
+        return res.status(404).send(error.message)
+    }
 
     return res.status(500).send("é")
 }

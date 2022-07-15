@@ -1,10 +1,9 @@
-import Cryptr from "cryptr"
-
 import { cryptr } from "../repositories/credentialsRepository.js"
 import { credentials } from "@prisma/client"
 import { credentialsRepository } from "../repositories/credentialsRepository.js"
 import { createNewCredential } from "../utils/createNewCredential.js"
 import { ensureTitleIsNotDuplicate } from "../utils/ensureTitleIsNotDuplicate.js"
+import { checkCredentialOwnership } from "../utils/checkCredentialOwnership.js"
 
 export type credentialsData = Omit<credentials, "id" | "userId">
 
@@ -36,8 +35,14 @@ async function returnSingleCredential(credentialId: number, userId: number) {
     return credential
 }
 
+async function deleteCredential(credentialId: number, userId: number) {
+    await checkCredentialOwnership(credentialId, userId)
+    await credentialsRepository.deleteCredential(credentialId)
+}
+
 export const credentialsService = {
     createCredential,
     returnAllCredentials,
     returnSingleCredential,
+    deleteCredential,
 }

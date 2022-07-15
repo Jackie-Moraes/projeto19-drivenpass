@@ -21,3 +21,11 @@ export async function getSingleCredential(req: Request, res: Response) {
     )
     return res.status(200).send(credential)
 }
+
+export async function deleteCredential(req: Request, res: Response) {
+    await credentialsService.deleteCredential(
+        parseInt(req.params.id),
+        res.locals.userId
+    )
+    return res.sendStatus(201)
+}

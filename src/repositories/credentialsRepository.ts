@@ -48,9 +48,29 @@ async function returnSingleCredential(credentialId: number, userId: number) {
     return credential
 }
 
+async function checkCredentialOwnership(credentialId: number, userId: number) {
+    const exists = await client.credentials.findFirst({
+        where: {
+            id: credentialId,
+            userId,
+        },
+    })
+    return exists
+}
+
+async function deleteCredential(credentialId: number) {
+    await client.credentials.delete({
+        where: {
+            id: credentialId,
+        },
+    })
+}
+
 export const credentialsRepository = {
     checkIfTitleIsDuplicate,
     createNewCredential,
     returnAllCredentials,
     returnSingleCredential,
+    checkCredentialOwnership,
+    deleteCredential,
 }
