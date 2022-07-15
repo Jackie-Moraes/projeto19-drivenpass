@@ -2,13 +2,13 @@ import { cryptr } from "../repositories/credentialsRepository.js"
 import { credentials } from "@prisma/client"
 import { credentialsRepository } from "../repositories/credentialsRepository.js"
 import { createNewCredential } from "../utils/createNewCredential.js"
-import { ensureTitleIsNotDuplicate } from "../utils/ensureTitleIsNotDuplicate.js"
+import { ensureCredentialTitleIsNotDuplicate } from "../utils/ensureTitleIsNotDuplicate.js"
 import { checkCredentialOwnership } from "../utils/checkCredentialOwnership.js"
 
 export type credentialsData = Omit<credentials, "id" | "userId">
 
 async function createCredential(body: credentialsData, userId: number) {
-    await ensureTitleIsNotDuplicate(body.title, userId)
+    await ensureCredentialTitleIsNotDuplicate(body.title, userId)
     await createNewCredential(body, userId)
 }
 

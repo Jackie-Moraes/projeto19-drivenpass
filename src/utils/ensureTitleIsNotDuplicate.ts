@@ -1,6 +1,9 @@
 import { credentialsRepository } from "../repositories/credentialsRepository.js"
 
-export async function ensureTitleIsNotDuplicate(title: string, userId: number) {
+export async function ensureCredentialTitleIsNotDuplicate(
+    title: string,
+    userId: number
+) {
     const exists = await credentialsRepository.checkIfTitleIsDuplicate(
         title,
         userId

@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 import handleErrors from "./src/middlewares/errorHandlerMiddleware.js"
 import usersRouter from "./src/routers/usersRouter.js"
 import credentialsRouter from "./src/routers/credentialsRouter.js"
+import notesRouter from "./src/routers/notesRouter.js"
 
 const app = express()
 app.use(cors())
@@ -15,6 +16,7 @@ dotenv.config()
 // Routers
 app.use(usersRouter)
 app.use(credentialsRouter)
+app.use(notesRouter)
 
 // Error Handler
 app.use(handleErrors)

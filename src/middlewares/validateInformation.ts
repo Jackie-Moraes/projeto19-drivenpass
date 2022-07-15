@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 
 import { userRepository } from "../repositories/userRepository.js"
 import credentialsSchema from "./schemas/credentialsSchema.js"
+import notesSchema from "./schemas/notesSchema.js"
 import signUpSchema from "./schemas/signUpSchema.js"
 
 export async function validateSignUp(
@@ -51,6 +52,19 @@ export async function validateCredentials(
     next: NextFunction
 ) {
     const validation = credentialsSchema.validate(req.body)
+    if (validation.error) {
+        throw { type: "validationError", message: validation.error }
+    }
+
+    next()
+}
+
+export async function validateNote(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    const validation = notesSchema.validate(req.body)
     if (validation.error) {
         throw { type: "validationError", message: validation.error }
     }
