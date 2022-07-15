@@ -22,5 +22,5 @@ export async function getSingleCard(req: Request, res: Response) {
 
 export async function deleteCard(req: Request, res: Response) {
     await cardsServices.deleteCard(parseInt(req.params.id), res.locals.userId)
-    return res.sendStatus(201)
+    return res.sendStatus(200)
 }

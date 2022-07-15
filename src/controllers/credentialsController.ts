@@ -27,5 +27,5 @@ export async function deleteCredential(req: Request, res: Response) {
         parseInt(req.params.id),
         res.locals.userId
     )
-    return res.sendStatus(201)
+    return res.sendStatus(200)
 }

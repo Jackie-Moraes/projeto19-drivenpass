@@ -22,5 +22,5 @@ export async function getSingleNote(req: Request, res: Response) {
 
 export async function deleteNote(req: Request, res: Response) {
     await notesService.deleteNote(parseInt(req.params.id), res.locals.userId)
-    return res.sendStatus(201)
+    return res.sendStatus(200)
 }
