@@ -47,5 +47,15 @@ export default async function handleErrors(
         return res.status(404).send(error.message)
     }
 
+    // Card Errors
+    if (error.type === "cardConflict") {
+        return res.status(404).send(error.message)
+    }
+
+    // Wifi Errors
+    if (error.type === "wifiConflict") {
+        return res.status(404).send(error.message)
+    }
+
     return res.status(500).send("é")
 }

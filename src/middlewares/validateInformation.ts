@@ -6,6 +6,7 @@ import cardsSchema from "./schemas/cardsSchema.js"
 import credentialsSchema from "./schemas/credentialsSchema.js"
 import notesSchema from "./schemas/notesSchema.js"
 import signUpSchema from "./schemas/signUpSchema.js"
+import wifiSchema from "./schemas/wifiSchema.js"
 
 export async function validateSignUp(
     req: Request,
@@ -79,6 +80,19 @@ export async function validateCard(
     next: NextFunction
 ) {
     const validation = cardsSchema.validate(req.body)
+    if (validation.error) {
+        throw { type: "validationError", message: validation.error }
+    }
+
+    next()
+}
+
+export async function validateWifi(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    const validation = wifiSchema.validate(req.body)
     if (validation.error) {
         throw { type: "validationError", message: validation.error }
     }
