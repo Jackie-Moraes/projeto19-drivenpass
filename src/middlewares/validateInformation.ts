@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import jwt from "jsonwebtoken"
 
 import { userRepository } from "../repositories/userRepository.js"
+import cardsSchema from "./schemas/cardsSchema.js"
 import credentialsSchema from "./schemas/credentialsSchema.js"
 import notesSchema from "./schemas/notesSchema.js"
 import signUpSchema from "./schemas/signUpSchema.js"
@@ -65,6 +66,19 @@ export async function validateNote(
     next: NextFunction
 ) {
     const validation = notesSchema.validate(req.body)
+    if (validation.error) {
+        throw { type: "validationError", message: validation.error }
+    }
+
+    next()
+}
+
+export async function validateCard(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    const validation = cardsSchema.validate(req.body)
     if (validation.error) {
         throw { type: "validationError", message: validation.error }
     }

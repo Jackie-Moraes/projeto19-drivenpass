@@ -1,4 +1,4 @@
-import { notesRepository } from "../repositories/notesRepository"
+import { notesRepository } from "../repositories/notesRepository.js"
 
 export async function checkNoteOwnership(noteId: number, userId: number) {
     const exists = await notesRepository.checkNoteOwnership(noteId, userId)
